@@ -2,23 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repo') {
+        stage('Build Frontend') {
             steps {
-                git 'https://github.com/your-repo.git'
+                sh 'docker build -t saibhupalam/devops_frontend ./frontend'
             }
         }
 
-        stage('Build Images') {
+        stage('Build Backend') {
             steps {
-                sh 'docker build -t username/reg_roll_frontend ./frontend'
-                sh 'docker build -t username/reg_roll_backend ./backend'
-            }
-        }
-
-        stage('Push to DockerHub') {
-            steps {
-                sh 'docker push username/reg_roll_frontend'
-                sh 'docker push username/reg_roll_backend'
+                sh 'docker build -t saibhupalam/devops_backend ./backend'
             }
         }
     }
